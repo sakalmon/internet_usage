@@ -1,4 +1,5 @@
 import re
+import os
 from requests import Session
 from bs4 import BeautifulSoup
 
@@ -43,4 +44,4 @@ with Session() as s:
     data_used = round(float(data_used) / 1000, 2)
     # TODO - Perform line continuation on the following line:
     print(f'Used: {data_used}GB\nLimit: {LIMIT}GB\nRemaining: {round(LIMIT - float(data_used), 2)}GB')
-
+    input()
