@@ -3,7 +3,7 @@ import os
 from requests import Session
 from bs4 import BeautifulSoup
 
-LIMIT = 500
+limit = '500.00'
 
 with Session() as s:
     home_page = 'https://secure.internode.on.net/'
@@ -12,10 +12,12 @@ with Session() as s:
 
     soup = BeautifulSoup(website.content, 'html.parser')
     
-    login_data = {'username': 'sakalmon@internode.on.net', 
-                  'password': 'fEtre.7c'}
+    login_data = {'username':
+                  'sakalmon@internode.on.net',
+                  'password':
+                  'fEtre.7c'}
 
-    s.post(login_page, 
+    s.post(login_page,
            login_data)
     menu = s.get(login_page)
     soup = BeautifulSoup(menu.content, 'html.parser')
@@ -25,16 +27,16 @@ with Session() as s:
     link_regex = re.compile(r'/myinternode/sys2/adslstats')
 
     try:
-        for tag in a_tags:   
+        for tag in a_tags:
             if link_regex.search(tag.get('href')):
-                usage_link = home_page + tag.get('href')[1:]          
-                break                                
+                usage_link = home_page + tag.get('href')[1:]
+                break
     except:
         pass
 
-    usage_page = s.get(usage_link)    
+    usage_page = s.get(usage_link)
     soup = BeautifulSoup(usage_page.content, 'html.parser')
-    td = soup.find_all('td', attrs={'class':'cell-bg-blue'})
+    td = soup.find_all('td', attrs={'class': 'cell-bg-blue'})
     
     line = td[1]
 
@@ -42,6 +44,8 @@ with Session() as s:
     match = data_regex.search(line.text)
     data_used = match.group(0)
     data_used = round(float(data_used) / 1000, 2)
-    # TODO - Perform line continuation on the following line:
-    print(f'Used: {data_used}GB\nLimit: {LIMIT}GB\nRemaining: {round(LIMIT - float(data_used), 2)}GB')
-    input()
+    remaining = round(float(limit) - float(data_used), 2)
+    # TODO - Tidy up the following lines by creating new variables.
+    print(f'{"Used: ".ljust(11)}{str(data_used).rjust(6)}GB')
+    print(f'{"Limit: ".ljust(11)}{limit.rjust(6)}GB')
+    print(f'{"Remaining: ".ljust(11)}{str(remaining).rjust(6)}GB')
