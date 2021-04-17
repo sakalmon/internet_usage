@@ -5,6 +5,8 @@ from bs4 import BeautifulSoup
 
 limit = '500.00'
 
+print('Fetching usage...\n')
+
 with Session() as s:
     home_page = 'https://secure.internode.on.net/'
     login_page = 'https://secure.internode.on.net/myinternode/sys0/login'
@@ -49,3 +51,6 @@ with Session() as s:
     print(f'{"Used: ".ljust(11)}{str(data_used).rjust(6)}GB')
     print(f'{"Limit: ".ljust(11)}{limit.rjust(6)}GB')
     print(f'{"Remaining: ".ljust(11)}{str(remaining).rjust(6)}GB')
+
+    print()
+    input('Press enter to exit...')
