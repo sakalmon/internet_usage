@@ -15,9 +15,9 @@ with Session() as s:
     soup = BeautifulSoup(website.content, 'html.parser')
     
     login_data = {'username':
-                  'sakalmon@internode.on.net',
+                  os.environ['INTERNODE_USERNAME'],
                   'password':
-                  'fEtre.7c'}
+                  os.environ['INTERNODE_PASSWORD']}
 
     s.post(login_page,
            login_data)
@@ -47,7 +47,6 @@ with Session() as s:
     data_used = match.group(0)
     data_used = round(float(data_used) / 1000, 2)
     remaining = round(float(limit) - float(data_used), 2)
-    # TODO - Tidy up the following lines by creating new variables.
     print(f'{"Used: ".ljust(11)}{str(data_used).rjust(6)}GB')
     print(f'{"Limit: ".ljust(11)}{limit.rjust(6)}GB')
     print(f'{"Remaining: ".ljust(11)}{str(remaining).rjust(6)}GB')
