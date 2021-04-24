@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% block title %}Home{% endblock title %}
+
+{% block header %}Internet Usage{% endblock header %}
+    
+{% block body %}
+    <div class="progress" style="width: 50%; margin: 50px;">
+        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+            <span class="progress-bar-label">0%</span>
+        </div>
+    </div>   
+    <p>
+    Used: {{ usage.used }}GB<br>
+    Limit: {{ usage.limit }}GB <br>
+    Remaining: {{ usage.remaining }}GB
+    </p>
+{% endblock body %}
