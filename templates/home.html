@@ -2,17 +2,23 @@
 
 {% block title %}Home{% endblock title %}
 
-{% block header %}Internet Usage{% endblock header %}
+{% block header %}
+<div class="container-fluid p-3 bg-dark text-light">
+<h1>Internet Usage</h1>
+</div>
+{% endblock header %}
     
 {% block body %}
-    <div class="progress" style="width: 50%; margin: 50px;">
-        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
-            <span class="progress-bar-label">0%</span>
+    <div class="progress mb-5 bg-secondary" style="width:100%; height:100px; font-size:18px">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:{{ (usage.used / usage.limit) * 100 }}%">
+            <span class="progress-bar-label">{{ usage.used }}GB/{{ usage.limit }}GB ({{ usage.used_perc }}%) <br> {{ usage.remaining }}GB left ({{ usage.days_remaining }} days remaning)</span>
         </div>
-    </div>   
+    </div>
+    <div class="full-height text-light mh-100 vh-100">   
     <p>
     Used: {{ usage.used }}GB<br>
     Limit: {{ usage.limit }}GB <br>
     Remaining: {{ usage.remaining }}GB
     </p>
+    </div>
 {% endblock body %}

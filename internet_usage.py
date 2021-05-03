@@ -1,5 +1,6 @@
 import re
 import os
+from datetime import date
 from requests import Session
 from bs4 import BeautifulSoup
 
@@ -54,6 +55,18 @@ def get_usage():
         usage['used_perc'] = data_used_perc
         usage['limit'] = limit
         usage['remaining'] = remaining
+
+        today = date.today()
+
+        if today.day >= 9:
+            reset_date = date(today.year, today.month + 1, 9)
+
+        else:
+            reset_date = date(today.year, today.month, 9)
+
+        days_remaining = (reset_date - today).days
+
+        usage['days_remaining'] = days_remaining
 
         print(usage['used'])
 
